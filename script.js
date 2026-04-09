@@ -25,8 +25,12 @@ function atualizarDatalist() {
         ...historicoManual
     ];
     
-    const nomesUnicos = [...new Set(todosOsNomes.filter(nome => nome))];
+    // Filtrar nomes únicos e remover valores vazios
+    const nomesUnicos = [...new Set(todosOsNomes.filter(nome => nome && nome.trim() !== ''))].sort();
+    
     const datalist = document.getElementById('historicoNomes');
+    if (!datalist) return;
+    
     datalist.innerHTML = '';
     
     nomesUnicos.forEach(nome => {
