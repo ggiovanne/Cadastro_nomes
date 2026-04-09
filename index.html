@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tufão Slots</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <div class="container" id="menuPrincipal">
+        <h2>Tufão Slots</h2>
+        
+        <div class="form-group">
+            <label for="dataSelecao">Data do Sorteio:</label>
+            <input type="date" id="dataSelecao">
+        </div>
+
+        <div class="form-group">
+            <label for="nomePessoa">Nome da Pessoa:</label>
+            <input type="text" id="nomePessoa" list="historicoNomes" placeholder="Digite ou selecione um nome">
+            <datalist id="historicoNomes"></datalist>
+        </div>
+
+        <div class="form-group">
+            <label>Quantidade de repetições:</label>
+            <select id="repeticoes" onchange="togglePersonalizado()">
+                <option value="1">1 repetição (R$ 2,80)</option>
+                <option value="5">5 repetições (R$ 10,00)</option>
+                <option value="10">10 repetições (R$ 25,00)</option>
+                <option value="personalizado">Personalizado</option>
+            </select>
+            <input type="number" id="qtdPersonalizada" placeholder="Digite a quantidade" style="display: none; margin-top: 10px;" min="1">
+        </div>
+
+        <button onclick="salvarEntrada()" class="btn-save">Cadastrar Pessoa</button>
+
+        <hr>
+
+        <h3>Ações</h3>
+        <button onclick="mostrarLista()" class="btn-view">Ver Lista</button>
+        <button onclick="gerarPDF()" class="btn-pdf">Gerar Lista em PDF</button>
+        
+        <div id="status"></div>
+    </div>
+
+    <!-- Tela de Visualização da Lista -->
+    <div class="container" id="telaLista" style="display: none;">
+        <h2 id="tituloListaDia">Lista do Dia</h2>
+        
+        <div id="listaNomesContainer">
+            <ul id="listaNomes"></ul>
+        </div>
+
+        <button onclick="confirmarReset()" class="btn-reset">Resetar Lista</button>
+        <button onclick="voltarMenu()" class="btn-back">Voltar ao Menu</button>
+    </div>
+
+    <!-- Modal de Confirmação de Reset -->
+    <div id="modalReset" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-exclamation-triangle warning-icon"></i>
+            <h3>Tem certeza?</h3>
+            <p>Isso apagará permanentemente todos os nomes desta lista do dia.</p>
+            <div class="modal-actions">
+                <button onclick="resetarLista()" class="btn-confirm">Sim, apagar tudo</button>
+                <button onclick="fecharModalReset()" class="btn-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão Individual -->
+    <div id="modalExcluirItem" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-trash-alt warning-icon"></i>
+            <h3>Remover Nome?</h3>
+            <p>Deseja realmente remover esta pessoa da lista?</p>
+            <div class="modal-actions">
+                <button id="btnConfirmarExclusao" class="btn-confirm">Remover</button>
+                <button onclick="fecharModalExcluirItem()" class="btn-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Sucesso Rápido -->
+    <div id="modalSucesso" class="modal-sucesso">
+        <div class="modal-sucesso-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="mensagemSucesso">Cadastrado com sucesso!</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
