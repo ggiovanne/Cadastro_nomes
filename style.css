@@ -28,6 +28,12 @@ input, select {
     margin-top: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 16px; /* Impede zoom automático no iOS/Android ao focar */
+}
+
+#dataSelecao {
+    font-size: 18px; /* Aumenta um pouco mais a fonte da data */
+    font-weight: bold;
 }
 
 button {
